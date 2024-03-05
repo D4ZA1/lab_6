@@ -4,7 +4,7 @@ from math import exp
 
 
 def step_activation(x):
-    return x>0
+    return x>=0
 
 def sigmoid_activation(x):
     return 1/(1+exp(-x))
