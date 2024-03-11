@@ -10,9 +10,9 @@ def step_activation(training_data,weights,alpha,epochs):
         error_sum = 0
         epoch_num+=1
         for x in training_data:
-            pred=(weights[0]*x[0]) + (weights[1]*x[1]) + (weights[2]*1)
+            pred=weights[0]*x[0] + weights[1]*x[1] + weights[2]*1
             output = pred>0
-            error = x[2] - int(output)
+            error = x[2] - output
             weights[0] += alpha * error * x[0]
             weights[1] += alpha * error * x[1]
             weights[2] += alpha * error * 1
@@ -121,69 +121,63 @@ weights = [10, 0.2, -0.75]
 alpha = 0.05
 epochs = 1000
 
+SWeights,SErrors,SEpoch_num=step_activation(training_data,weights,alpha,epochs)
+
+# Plotting
+print("Step_activation")
+print(f"Finalized weights are W0:{SWeights[0]}, W1:{SWeights[1]},W2:{SWeights[2]}")
+print(f"number of Epoches needed is {SEpoch_num}")
+plt.plot(range(len(SErrors)), SErrors)
+plt.xlabel('Epochs')
+plt.ylabel('Sum-Square-Error')
+plt.title('step activation')
+plt.show()
+
+Bweights,Berrors,Bepoch_num=bi_polar_activation(training_data,weights,alpha,epochs)
+
+# Plotting
+print("Bi-polar activation")
+print(f"Finalized weights are W0:{Bweights[0]}, W1:{Bweights[1]},W2:{Bweights[2]}")
+print(f"number of Epoches needed is {Bepoch_num}")
+plt.plot(range(len(Berrors)), Berrors)
+plt.xlabel('Epochs')
+plt.ylabel('Sum-Square-Error')
+plt.title('Bi-polar activation')
+plt.show()
+
+SiWeights,SiErrors,SiEpoch_num=sigmoid_activation(training_data,weights,alpha,epochs)
+
+# Plotting
+print("Sigmoid activation")
+print(f"Finalized weights are W0:{SiWeights[0]}, W1:{SiWeights[1]},W2:{SiWeights[2]}")
+print(f"number of Epoches needed is {SiEpoch_num}")
+plt.plot(range(len(SiErrors)), SiErrors)
+plt.xlabel('Epochs')
+plt.ylabel('Sum-Square-Error')
+plt.title('sigmoid activation')
+plt.show()
+
+RWeights,RErrors,REpoch_num=reLU_activation(training_data,weights,alpha,epochs)
+
+# Plotting
+print("reLU activation")
+print(f"Finalized weights are W0:{RWeights[0]}, W1:{RWeights[1]},W2:{RWeights[2]}")
+print(f"number of Epoches needed is {REpoch_num}")
+plt.plot(range(len(RErrors)), RErrors)
+plt.xlabel('Epochs')
+plt.ylabel('Sum-Square-Error')
+plt.title('reLU activation')
+plt.show()
+
 activation_functions = ['step', 'sigmoid', 'bi_polar', 'reLU']
 
 for activation_function in activation_functions:
-    if activation_function == 'step':
-        weights_trained, errors, epoch_num = step_activation(training_data, weights, alpha, epochs)
-    elif activation_function == 'sigmoid':
-        weights_trained, errors, epoch_num = sigmoid_activation(training_data, weights, alpha, epochs)
-    elif activation_function == 'bi_polar':
-        weights_trained, errors, epoch_num = bi_polar_activation(training_data, weights, alpha, epochs)
-    elif activation_function == 'reLU':
-        weights_trained, errors, epoch_num = reLU_activation(training_data, weights, alpha, epochs)
+    accuracy = test_perceptron(weights, training_data, activation_function)
+    print(f"Activation function: {activation_function}, Accuracy: {accuracy*100}")
 
-    accuracy = test_perceptron(weights_trained, training_data, activation_function)
-    print(f"Activation function: {activation_function}, Accuracy: {accuracy}, Epochs: {epoch_num}")
 
-#
-# SWeights,SErrors,SEpoch_num=step_activation(training_data,weights,alpha,epochs)
-#
-# # Plotting
-# print("Step_activation")
-# print(f"Finalized weights are W0:{SWeights[0]}, W1:{SWeights[1]},W2:{SWeights[2]}")
-# print(f"number of Epoches needed is {SEpoch_num}")
-# plt.plot(range(len(SErrors)), SErrors)
-# plt.xlabel('Epochs')
-# plt.ylabel('Sum-Square-Error')
-# plt.title('step activation')
-# plt.show()
-#
-# Bweights,Berrors,Bepoch_num=bi_polar_activation(training_data,weights,alpha,epochs)
-#
-# # Plotting
-# print("Bi-polar activation")
-# print(f"Finalized weights are W0:{Bweights[0]}, W1:{Bweights[1]},W2:{Bweights[2]}")
-# print(f"number of Epoches needed is {Bepoch_num}")
-# plt.plot(range(len(Berrors)), Berrors)
-# plt.xlabel('Epochs')
-# plt.ylabel('Sum-Square-Error')
-# plt.title('Bi-polar activation')
-# plt.show()
-#
-# SiWeights,SiErrors,SiEpoch_num=sigmoid_activation(training_data,weights,alpha,epochs)
-#
-# # Plotting
-# print("Sigmoid activation")
-# print(f"Finalized weights are W0:{SiWeights[0]}, W1:{SiWeights[1]},W2:{SiWeights[2]}")
-# print(f"number of Epoches needed is {SiEpoch_num}")
-# plt.plot(range(len(SiErrors)), SiErrors)
-# plt.xlabel('Epochs')
-# plt.ylabel('Sum-Square-Error')
-# plt.title('sigmoid activation')
-# plt.show()
-#
-# RWeights,RErrors,REpoch_num=reLU_activation(training_data,weights,alpha,epochs)
-#
-# # Plotting
-# print("reLU activation")
-# print(f"Finalized weights are W0:{RWeights[0]}, W1:{RWeights[1]},W2:{RWeights[2]}")
-# print(f"number of Epoches needed is {REpoch_num}")
-# plt.plot(range(len(RErrors)), RErrors)
-# plt.xlabel('Epochs')
-# plt.ylabel('Sum-Square-Error')
-# plt.title('reLU activation')
-# plt.show()
+
+
 
 # question 3
 rate = [0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1]
