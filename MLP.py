@@ -31,4 +31,4 @@ X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.6, random_
 clf = MLPClassifier(solver='sgd', learning_rate_init=alpha, random_state=1)
 clf.fit(X_train,y_train)
 y_pred=clf.predict(X_test)
-print(clf.score(X_test,y_pred))
+print(clf.score(X_test,y_test))
