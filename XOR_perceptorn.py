@@ -122,10 +122,12 @@ alpha = 0.05
 epochs = 1000
 
 activation_functions = ['step', 'sigmoid', 'bi_polar', 'reLU']
+activated_weights=['SWeights','SiWeights','Bweights','RWeights']
 
-for activation_function in activation_functions:
-    accuracy = test_perceptron(weights, training_data, activation_function)
-    print(f"Activation function: {activation_function}, Accuracy: {accuracy}")
+for Af,Aw in zip(activation_functions,activated_weights):
+    accuracy = test_perceptron(Aw, training_data, Af)
+    print(f"Activation function: {Af}, Accuracy: {accuracy*100}")
+
 
 SWeights,SErrors,SEpoch_num=step_activation(training_data,weights,alpha,epochs)
 
