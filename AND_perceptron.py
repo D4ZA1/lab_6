@@ -170,10 +170,11 @@ plt.title('reLU activation')
 plt.show()
 
 activation_functions = ['step', 'sigmoid', 'bi_polar', 'reLU']
+activatated_weights=['SWeights','SiWeights','Bweights','RWeights']
 
-for activation_function in activation_functions:
-    accuracy = test_perceptron(weights, training_data, activation_function)
-    print(f"Activation function: {activation_function}, Accuracy: {accuracy*100}")
+for Af,Aw in zip(activation_functions,activated_weights):
+    accuracy = test_perceptron(Aw, training_data, Af)
+    print(f"Activation function: {Af}, Accuracy: {accuracy*100}")
 
 
 
